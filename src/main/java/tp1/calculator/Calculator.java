@@ -5,7 +5,40 @@ import java.util.Stack;
 public class Calculator implements tp1.interfaces.Calculator {
     @Override
     public String sum(String a, String b) {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        String strA = a;
+        String strB = b;
+        int carry = 0;
+        int maxLength = 0;
+        if (a.length() > b.length()) {
+            maxLength = a.length();
+            strB = addZeros(strB,maxLength);
+        }
+        else if(a.length() < b.length()){
+            maxLength = b.length();
+            strA = addZeros(strA,maxLength);
+        }
+        else {maxLength = a.length();}
+        for(int i = maxLength - 1;i >= 0; i--){
+            int binaryA = Character.getNumericValue(strA.charAt(i));
+            int binaryB = Character.getNumericValue(strB.charAt(i));;
+            int sum =binaryA + binaryB + carry;
+            carry = sum / 2;
+            int valueToAdd = sum % 2;
+            builder.insert(0,valueToAdd);
+        }
+        if (carry == 1){
+            builder.insert(0,carry);
+        }
+        return builder.toString();
+    }
+
+    private String addZeros(String a, int maxlength){
+        StringBuilder builder = new StringBuilder(a);
+        while (builder.length() < maxlength){
+            builder.insert(0,0);
+        }
+        return builder.toString();
     }
 
     @Override
