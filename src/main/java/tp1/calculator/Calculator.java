@@ -41,6 +41,7 @@ public class Calculator implements tp1.interfaces.Calculator {
 
     @Override
     public String sub(String a, String b) {
+
         int carry = 0;
         int maxLength = 0;
         StringBuilder builder = new StringBuilder();
@@ -54,6 +55,17 @@ public class Calculator implements tp1.interfaces.Calculator {
         }
         else
             maxLength = a.length();
+
+        try{
+            for(int i = 0; i < maxLength;i++){
+                if (Character.getNumericValue(a.charAt(i)) > Character.getNumericValue(b.charAt(i)))
+                    break;
+                else if (Character.getNumericValue(a.charAt(i)) < Character.getNumericValue(b.charAt(i)))
+                    throw  new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
+            return "negative result";
+        }
 
         String complementB = binaryComplement(b);
         for(int i = maxLength - 1;i >= 0; i--){
@@ -103,7 +115,12 @@ public class Calculator implements tp1.interfaces.Calculator {
 
     @Override
     public String div(String a, String b) {
-        if (toDecimal(b) == 0){
+        try{
+            if (toDecimal(b) == 0){
+                throw new IllegalArgumentException();
+            }
+
+        } catch (IllegalArgumentException e) {
             return "invalid value";
         }
         Integer counter = 0;

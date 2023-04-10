@@ -73,7 +73,7 @@ public class calculator{
         String a = "010110";
         String b = "011001";
         String result = calc.sub(a,b);
-        Assert.assertEquals("111101",result);
+        Assert.assertEquals("negative result",result);
     }
     @Test
     public void testMult(){
